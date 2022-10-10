@@ -4,30 +4,32 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 require('dotenv').config()
 
-const {DB_URL, DB_PORT, DB_NAME, PORT} = process.env
+const {MONGODB_URI, PORT} = process.env
 
-mongoose.connect(`mongodb://${DB_URL}:${DB_PORT}/${DB_NAME}`)
+mongoose.connect(MONGODB_URI)
 
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
 
 const corsConfig = {
-  origin: 'http://localhost:3000',
+  origin: 'https://verceldemo-mu.vercel.app',
   credentials: true,
 }
 
 app.use(cors(corsConfig))
 app.options('*', cors(corsConfig))
 
-app.use('/user', require('./src/routes/user'))
-app.use('/answers', require('./src/routes/answers'))
-app.use('/questions', require('./src/routes/questions'))
+app.use('/api/user', require('./src/routes/user'))
+app.use('/api/answers', require('./src/routes/answers'))
+app.use('/api/questions', require('./src/routes/questions'))
 
-app.post('/drop-database', async (req, res) => {
+app.post('/api/drop-database', async (req, res) => {
   await mongoose.connection.db.dropDatabase()
   res.status(200).send('OK')
 })
+
+app.use('/', express.static('../../frontend/build'));
 
 
 app.use((req, res, next) => {
