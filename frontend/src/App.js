@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 
-const API = "https://helpful-onesies-fly.cyclic.app/api/test";
+const API = "/api/test";
 
 function App() {
   const [data, setData] = useState(); 
