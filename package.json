@@ -5,9 +5,8 @@
   "main": "./backend/app.js",
   "scripts": {
     "start": "cd ./backend && node app.js",
-	"install": "cd ./frontend && yarn install && yarn build && cd .. && cd ./backend && yarn install",
-	"build-all": "cd ./frontend && yarn install && yarn build && cd .. && cd ./backend && yarn install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"install": "cd ./frontend && npm install && npm run build && cd .. && cd ./backend && npm install",
+	"test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
