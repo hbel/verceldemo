@@ -20,16 +20,14 @@ const corsConfig = {
 app.use(cors(corsConfig))
 app.options('*', cors(corsConfig))
 
-app.use('/api/user', require('./src/routes/user'))
-app.use('/api/answers', require('./src/routes/answers'))
-app.use('/api/questions', require('./src/routes/questions'))
+app.use('/user', require('./src/routes/user'))
+app.use('/answers', require('./src/routes/answers'))
+app.use('/questions', require('./src/routes/questions'))
 
 app.post('/api/drop-database', async (req, res) => {
   await mongoose.connection.db.dropDatabase()
   res.status(200).send('OK')
 })
-
-app.use('/', express.static('../../frontend/build'));
 
 
 app.use((req, res, next) => {
