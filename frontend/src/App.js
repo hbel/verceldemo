@@ -1,7 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+
+const API = "https://helpful-onesies-fly.cyclic.app/api/test";
 
 function App() {
+  const [data, setData] = useState(); 
+
+  useEffect(() => {
+	fetch({
+		method: "GET",
+		url: API
+	}).then(res => res.json()).then(d => setData(d));
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +29,12 @@ function App() {
           Learn React
         </a>
       </header>
+	  <div>
+		<h2>Informationen aus dem Backend</h2>
+		<p>Typ: {data?.type}</p>
+		<p>Name: {data?.payload?.name}</p>
+		<p>Count: {data?.payload?.count}</p>
+	  </div>
     </div>
   );
 }
