@@ -5,7 +5,7 @@ require('express-async-errors')
 const multer = require("multer");
 const app = express.Router()
 
-const upload = multer({dest: "uploads/"});
+const upload = multer({dest: "/tmp/uploads/"});
 
 // -> /user
 app.get('/', controller.getCurrentUser)
