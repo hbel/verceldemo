@@ -8,9 +8,9 @@ function App() {
   const [data, setData] = useState(); 
 
   useEffect(() => {
-	fetch({
+	fetch(API, {
 		method: "GET",
-		url: API
+		credentials: "include"
 	}).then(res => res.json()).then(d => setData(d));
   }, [])
   return (
