@@ -2,9 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const path = require('path');
 require('dotenv').config()
 
-const {MONGODB_URI, PORT} = process.env
+const {MONGODB_URI, PORT, FRONTEND_DOMAIN} = process.env
 
 mongoose.connect(MONGODB_URI)
 
@@ -13,22 +14,27 @@ app.use(express.json())
 app.use(cookieParser())
 
 const corsConfig = {
-  origin: 'https://verceldemo-mu.vercel.app',
+  origin: FRONTEND_DOMAIN,
   credentials: true,
 }
 
 app.use(cors(corsConfig))
 app.options('*', cors(corsConfig))
 
-app.use('/user', require('./src/routes/user'))
-app.use('/answers', require('./src/routes/answers'))
-app.use('/questions', require('./src/routes/questions'))
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+app.use('/api/user', require('./src/routes/user'))
+app.use('/api/answers', require('./src/routes/answers'))
+app.use('/api/questions', require('./src/routes/questions'))
 
 app.post('/api/drop-database', async (req, res) => {
   await mongoose.connection.db.dropDatabase()
   res.status(200).send('OK')
 })
 
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/../frontend/build/index.html'));
+});
 
 app.use((req, res, next) => {
   const error = new Error('Nichts gefunden')
