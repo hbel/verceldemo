@@ -5,7 +5,7 @@
   "main": "./backend/app.js",
   "scripts": {
     "start": "cd ./backend && node app.js",
-	"install": "cd ./frontend && npm install && npm run build && cd .. && cd ./backend && npm install",
+	"install": "cd ./backend && npm install",
 	"test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
