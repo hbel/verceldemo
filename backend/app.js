@@ -23,6 +23,7 @@ app.options('*', cors(corsConfig))
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
+app.get('/api/test', (req, res) => { res.json(JSON.stringify({ type: "Data", payload: { name: "foo", count: 12 }})); })
 app.use('/api/user', require('./src/routes/user'))
 app.use('/api/answers', require('./src/routes/answers'))
 app.use('/api/questions', require('./src/routes/questions'))
